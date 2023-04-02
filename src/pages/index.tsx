@@ -2,8 +2,11 @@ import { type NextPage } from "next";
 import Head from "next/head";
 
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
-const Home: NextPage = () => {
+import { api } from "~/utils/api";
+const Home: NextPage = (props) => {
+
   const user = useUser();
+  const { data } = api.rockets.getAll.useQuery();
 
   return (
     <>
@@ -13,8 +16,17 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center">
-        {!user.isSignedIn && <SignInButton>Sign in with Clerk </SignInButton>}
-        {!!user.isSignedIn && <SignOutButton />}
+        <div>
+          {!user.isSignedIn && <SignInButton>Sign in with Clerk </SignInButton>}
+          {!!user.isSignedIn && <SignOutButton />}
+        </div>
+        <div>
+          {data?.map((rocket) => (
+            <div key={rocket?.id}>
+              <p>{rocket?.description}</p>
+            </div>
+          ))}
+        </div>
       </main>
     </>
   );
