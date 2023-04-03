@@ -10,7 +10,8 @@ import Image from "next/image";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useState } from "react";
-
+import { FaEdit } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 
 dayjs.extend(relativeTime);
 
@@ -80,7 +81,7 @@ const CreateRocketWizard = () => {
       {
         isRocketing && (
           <div className="flex items-center justify-center">
-              <LoadingSpinner size={40} /> 
+            <LoadingSpinner size={40} />
           </div>
         )
       }
@@ -102,12 +103,26 @@ const RocketView = (props: RocketWithUser) => {
         placeholder="blur"
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAA"
         src={author.profilePicture} alt="profile image" />
-      <div className="flex flex-col">
+      <div className="flex flex-col w-full">
         <div className="flex text-slate-400 font-bold gap-2">
           <span>{`@${author.name}`}</span>
           <span className=" font-thin">{`· ${dayjs(rocket.createdAt).fromNow()}`}</span>
         </div>
         <span className=" text-2xl">{rocket?.description}</span>
+      </div>
+      <div className="flex flex-col self-end">
+        <button className="text-rose-100 p-2"
+          onClick={() => {
+            // bind data to the form
+          }}
+        >
+          <FaEdit />
+        </button>
+        <button className="text-rose-100 p-2"
+          onClick={() =>  deleteMutate({ id: rocket.id })}
+        >
+          <FaTrash />
+        </button>
       </div>
     </div>
   )
