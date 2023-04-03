@@ -2,11 +2,14 @@ import { type NextPage } from "next";
 import Head from "next/head";
 
 import { SignInButton, useUser } from "@clerk/nextjs";
+import { Loading } from "../components/Loading";
+
 import { api } from "~/utils/api";
 import type { RouterOutputs } from "~/utils/api";
 import Image from "next/image";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+
 
 dayjs.extend(relativeTime);
 

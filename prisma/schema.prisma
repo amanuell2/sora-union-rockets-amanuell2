@@ -18,6 +18,6 @@ model Rocket {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt @default(now())
     description String @db.VarChar(255)
-    authorId String
+    authorId String @db.VarChar(255)
     @@index([authorId])
 }
