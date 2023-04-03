@@ -6,6 +6,7 @@ import Trpc from "~/pages/api/trpc/[trpc]";
 
 import {
     createTRPCRouter,
+    protectedProcedure,
     publicProcedure,
 } from "~/server/api/trpc";
 
@@ -22,6 +23,11 @@ export const rocketsRouter = createTRPCRouter({
     getAll: publicProcedure.query(async ({ ctx }) => {
         const rockets = await ctx.prisma.rocket.findMany({
             take: 100,
+            orderBy: [
+                {
+                    createdAt: "desc",
+                }
+            ]
         });
 
         const user = (await clerkClient.users.getUserList({
@@ -39,7 +45,7 @@ export const rocketsRouter = createTRPCRouter({
 
             return {
                 rocket,
-                author:{
+                author: {
                     ...author,
                     name: author.name,
                 }
@@ -47,4 +53,25 @@ export const rocketsRouter = createTRPCRouter({
         });
     }),
 
+    create: protectedProcedure.input(
+        z.object({
+            title: z.string(),
+            description: z.string(),
+        })
+    ).mutation(async ({ ctx, input }) => {
+        const authorId = ctx.userId;
+
+        const rocket = await ctx.prisma.rocket.create({
+            data: {
+                authorId,
+                title: input.title,
+                description: input.description,
+            },
+        });
+
+        return rocket
+            
+        
+
+    })
 });

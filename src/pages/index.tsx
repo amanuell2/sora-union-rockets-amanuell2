@@ -9,13 +9,28 @@ import type { RouterOutputs } from "~/utils/api";
 import Image from "next/image";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useState } from "react";
 
 
 dayjs.extend(relativeTime);
 
 const CreateRocketWizard = () => {
+  const [rocketTitle, setRocketTitle] = useState<string>("");
+
+  const [rocketDescription, setRocketDescription] = useState<string>("");
 
   const { user } = useUser();
+
+  const ctx = api.useContext();
+  
+  const { mutate, isLoading: isRocketing } = api.rockets.create.useMutation({
+    onSuccess: () => {
+      setRocketDescription("");
+      setRocketTitle("");
+      void ctx.rockets.getAll.invalidate()
+    }
+  });
+
   if (!user) return null
 
   return (
@@ -27,7 +42,28 @@ const CreateRocketWizard = () => {
         placeholder="blur"
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAA"
       />
-      <input type="text" placeholder="type name of rocket" className="bg-transparent grow outline-none" />
+      <div className="flex flex-col w-full">
+        <input type="text" placeholder="rocket title" className="bg-transparent grow outline-none"
+          value={rocketTitle}
+          onChange={(e) => setRocketTitle(e.target.value)}
+          disabled={isRocketing}
+        />
+        <input type="text" placeholder="rocket description" className="bg-transparent grow outline-none border w-11/12 border-rose-100 px-2"
+          value={rocketDescription}
+          onChange={(e) => setRocketDescription(e.target.value)}
+          disabled={isRocketing}
+        />
+      </div>
+      <button className="bg-rose-100 text-rose-500 rounded-full p-2 w-32"
+        onClick={(e) => {
+          e.preventDefault();
+          mutate({
+            title: rocketTitle,
+            description: rocketDescription,
+          })
+        }
+        }
+      >Add</button>
     </div>
   )
 
@@ -42,6 +78,7 @@ const RocketView = (props: RocketWithUser) => {
       <Image
         width={56}
         height={56}
+        className="w-14 h-14 rounded-full"
         placeholder="blur"
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAA"
         src={author.profilePicture} alt="profile image" />
@@ -66,7 +103,7 @@ const Feed = () => {
 
   return (
     <div>
-      {[...data]?.map((rocketDetail) => (
+      {data.map((rocketDetail) => (
         <RocketView {...rocketDetail} key={rocketDetail.rocket.id} />
       ))}
     </div>
