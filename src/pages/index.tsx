@@ -94,6 +94,40 @@ type RocketWithUser = RouterOutputs["rockets"]["getAll"][number];
 
 const RocketView = (props: RocketWithUser) => {
   const { rocket, author } = props;
+
+  const { mutate: updateMutate } = api.rockets.update.useMutation({
+    onSuccess: () => {
+      void ctx.rockets.getAll.invalidate()
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors;
+      // toast error message if it is from the server
+      if (errorMessage) {
+        toast.error(" Please  check your form inputs  ")
+      }
+      else {
+        toast.error("Something went wrong")
+      }
+    }
+  });
+
+  const ctx = api.useContext();
+  const { mutate: deleteMutate } = api.rockets.delete.useMutation({
+    onSuccess: () => {
+      toast.success("Deleted successfully")
+      void ctx.rockets.getAll.invalidate()
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors;
+      // toast error message if it is from the server
+      if (errorMessage) {
+        toast.error(" Please  check your form inputs  ")
+      }
+      else {
+        toast.error("Something went wrong")
+      }
+    }
+  });
   return (
     <div className="border-b border-slate-400 p-4 flex gap-3" key={rocket.id}>
       <Image

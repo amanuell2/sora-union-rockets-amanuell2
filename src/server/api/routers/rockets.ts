@@ -70,8 +70,43 @@ export const rocketsRouter = createTRPCRouter({
         });
 
         return rocket
-            
-        
+    }),
+ 
+    update: protectedProcedure.input(
+        z.object({
+            title: z.string().min(1).nonempty(),
+            description: z.string().min(3).nonempty(),
+        })
+    ).mutation(async ({ ctx, input }) => {
+        const authorId = ctx.userId;
 
+        const rocket = await ctx.prisma.rocket.update({
+            where: {
+                id: authorId,
+            },
+            data: {
+                title: input.title,
+                description: input.description,
+            },
+        });
+
+        return rocket
+    }),
+
+    delete: protectedProcedure.input(
+        z.object({
+            id: z.string().nonempty(),
+        })
+    ).mutation(async ({ ctx, input }) => {
+        const authorId = ctx.userId;
+        const rocket = await ctx.prisma.rocket.deleteMany({
+            where: {
+                id: input.id,
+                authorId: authorId,
+            }
+        });
+
+        return rocket
     })
+
 });
