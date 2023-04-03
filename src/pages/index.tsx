@@ -48,7 +48,7 @@ const RocketView = (props: RocketWithUser) => {
       <div className="flex flex-col">
         <div className="flex text-slate-400 font-bold gap-2">
           <span>{`@${author.name}`}</span>
-          <span className=" font-thin">{`. ${dayjs(rocket.createdAt).fromNow()} hour ago`}</span>
+          <span className=" font-thin">{`· ${dayjs(rocket.createdAt).fromNow()}`}</span>
         </div>
         <span>{rocket?.description}</span>
       </div>
@@ -57,13 +57,30 @@ const RocketView = (props: RocketWithUser) => {
 
 }
 
+const Feed = () => {
+  const { data, isLoading: rocketLoading } = api.rockets.getAll.useQuery();
+
+  if (rocketLoading) return <Loading />
+  
+  if (!data) return <div>Something goes wrong!</div>
+
+  return (
+    <div>
+      {[...data]?.map((rocketDetail) => (
+        <RocketView {...rocketDetail} key={rocketDetail.rocket.id} />
+      ))}
+    </div>
+  )
+}
 const Home: NextPage = (props) => {
 
-  const user = useUser();
-  const { data, isLoading } = api.rockets.getAll.useQuery();
+  const { user, isLoaded: userLoaded, isSignedIn } = useUser();
 
-  if (isLoading) return <div >Loading ...</div>
-  if (!data) return <div>Something goes wrong!</div>
+  // start fetching data from the api on initial render
+  const { data } = api.rockets.getAll.useQuery();
+
+  // return empty div if user is not loaded
+  if (!userLoaded) return <div />
 
   return (
     <>
@@ -75,17 +92,13 @@ const Home: NextPage = (props) => {
       <main className="flex justify-center h-screen">
         <div className=" w-full md:max-w-2xl h-full border-x border-slate-400">
           <div className="flex border-b border-slate-400 p-4">
-            {!user.isSignedIn && (<div className="flex justify-center">
+            {!isSignedIn && (<div className="flex justify-center">
               <SignInButton />
             </div>
             )}
-            {!!user.isSignedIn && <CreateRocketWizard />}
+            {!!isSignedIn && <CreateRocketWizard />}
           </div>
-          <div>
-            {[...data, ...data]?.map((rocketDetail) => (
-              <RocketView {...rocketDetail} key={rocketDetail.rocket.id} />
-            ))}
-          </div>
+          <Feed />
         </div>
       </main>
     </>
