@@ -25,12 +25,12 @@ export const rocketsRouter = createTRPCRouter({
         });
 
         const user = (await clerkClient.users.getUserList({
-            userId: rockets.map((rocket) => rocket.autthorId),
+            userId: rockets.map((rocket) => rocket.authorId),
             limit: 100,
         })).map(filterUserForClient);
 
         return rockets.map((rocket) => {
-            const author = user.find((user) => user.id === rocket.autthorId);
+            const author = user.find((user) => user.id === rocket.authorId);
 
             if (!author || !author.name) throw new TRPCError({
                 code: 'INTERNAL_SERVER_ERROR',
