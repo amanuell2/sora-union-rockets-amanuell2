@@ -64,16 +64,26 @@ const CreateRocketWizard = () => {
           disabled={isRocketing}
         />
       </div>
-      <button className="bg-rose-100 text-rose-500 rounded-full p-2 w-32"
-        onClick={(e) => {
-          e.preventDefault();
-          mutate({
-            title: rocketTitle,
-            description: rocketDescription,
-          })
-        }
-        }
-      >Add</button>
+      {
+        rocketTitle != "" && !isRocketing && (
+          <button className="bg-rose-100 text-rose-500 rounded-full p-2 w-32"
+            onClick={() => {
+              mutate({
+                title: rocketTitle,
+                description: rocketDescription,
+              })
+            }
+            }
+          >Add</button>
+        )
+      }
+      {
+        isRocketing && (
+          <div className="flex items-center justify-center">
+              <LoadingSpinner size={40} /> 
+          </div>
+        )
+      }
     </div>
   )
 
