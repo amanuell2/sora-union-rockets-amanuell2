@@ -55,8 +55,8 @@ export const rocketsRouter = createTRPCRouter({
 
     create: protectedProcedure.input(
         z.object({
-            title: z.string(),
-            description: z.string(),
+            title: z.string().min(1).nonempty(),
+            description: z.string().min(3).nonempty(),
         })
     ).mutation(async ({ ctx, input }) => {
         const authorId = ctx.userId;

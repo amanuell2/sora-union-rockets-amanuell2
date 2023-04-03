@@ -2,8 +2,8 @@ import { type NextPage } from "next";
 import Head from "next/head";
 
 import { SignInButton, useUser } from "@clerk/nextjs";
-import { Loading } from "../components/Loading";
-
+import { Loading, LoadingSpinner } from "../components/Loading";
+import { toast } from "react-hot-toast";
 import { api } from "~/utils/api";
 import type { RouterOutputs } from "~/utils/api";
 import Image from "next/image";
@@ -22,12 +22,22 @@ const CreateRocketWizard = () => {
   const { user } = useUser();
 
   const ctx = api.useContext();
-  
+
   const { mutate, isLoading: isRocketing } = api.rockets.create.useMutation({
     onSuccess: () => {
       setRocketDescription("");
       setRocketTitle("");
       void ctx.rockets.getAll.invalidate()
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors;
+      // toast error message if it is from the server
+      if (errorMessage) {
+        toast.error(" Please  check your form inputs  ")
+      }
+      else {
+        toast.error("Something went wrong")
+      }
     }
   });
 

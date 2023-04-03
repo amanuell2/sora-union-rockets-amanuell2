@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-
+import { Toaster } from "react-hot-toast";
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
@@ -14,6 +14,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <ClerkProvider {...pageProps} >
       <SessionProvider session={session}>
+        <Toaster position="bottom-right"/>
         <Component {...pageProps} />
       </SessionProvider>
     </ClerkProvider>
