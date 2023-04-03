@@ -50,7 +50,7 @@ const RocketView = (props: RocketWithUser) => {
           <span>{`@${author.name}`}</span>
           <span className=" font-thin">{`· ${dayjs(rocket.createdAt).fromNow()}`}</span>
         </div>
-        <span>{rocket?.description}</span>
+        <span className=" text-2xl">{rocket?.description}</span>
       </div>
     </div>
   )
@@ -61,7 +61,7 @@ const Feed = () => {
   const { data, isLoading: rocketLoading } = api.rockets.getAll.useQuery();
 
   if (rocketLoading) return <Loading />
-  
+
   if (!data) return <div>Something goes wrong!</div>
 
   return (
