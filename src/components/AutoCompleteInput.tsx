@@ -62,9 +62,9 @@ const onchange = (value: User) => {
     <div className="top-16 w-full border rounded-md">
       <Combobox value={selected} onChange={onchange}>
         <div className="relative mt-1">
-          <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+          <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left focus:outline-none  sm:text-sm">
             <Combobox.Input
-              className="w-full placeholder-slate-400 border-none py-3.5 px-4  text-sm leading-5 text-gray-900 focus:ring-0"
+              className="w-full placeholder-slate-400 border-none py-3.5 px-4  text-sm leading-5 text-gray-900 focus:outline-none"
               displayValue={(person:User) => person?.name || ''}
               onChange={debouncedResults}
               placeholder='Github User '
@@ -79,7 +79,7 @@ const onchange = (value: User) => {
           >
             <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {peoples.length === 0 && query !== '' ? (
-                <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
+                <div className="relative cursor-default select-none py-2 px-4 text-slate-700">
                   Nothing found.
                 </div>
               ) : (
@@ -87,7 +87,7 @@ const onchange = (value: User) => {
                   <Combobox.Option
                     key={person.id}
                     className={({ active }) =>
-                      `relative cursor-default select-none py-2 px-2 ${active ? 'bg-teal-600 text-white' : 'text-gray-900'
+                      `relative cursor-default select-none py-2 px-2 ${active ? 'bg-slate-500 text-white' : 'text-gray-900'
                       }`
                     }
                     value={person}
@@ -107,7 +107,7 @@ const onchange = (value: User) => {
                         </span>
                         {selected ? (
                           <span
-                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? 'text-white' : 'text-teal-600'
+                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? 'text-white' : 'text-slate-600'
                               }`}
                           >
 
