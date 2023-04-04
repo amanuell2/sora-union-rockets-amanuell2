@@ -129,7 +129,7 @@ const CreateRocketWizard = () => {
         </div>
         {
           !isSubmitting && !isRocketing && !isReviewUpdating && (
-            <button className="bg-rose-100 text-rose-500 self-center w-32 h-32"
+            <button className="bg-rose-100 text-rose-500 self-center w-32 h-1/2 rounded-full"
               type="submit"
             >
               {isUpdating ? "Update" : "Create"}
