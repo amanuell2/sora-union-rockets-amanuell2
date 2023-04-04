@@ -15,7 +15,7 @@ export const AutoCompleteInput = () => {
     const [peoples, setPeoples] = useState<User[]>([])
     const [selected, setSelected] = useState(null)
 
-    const handleChange = (e) => {
+    const handleChange = (e:React.ChangeEvent<HTMLInputElement>)=> {
         console.log(e.target.value)
         setQuery(e.target.value) 
       }
