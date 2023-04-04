@@ -9,7 +9,6 @@ body {
 
 .container-shadow {
   box-shadow: 0px 60px 120px -20px #ebeffd;
-  border-radius: 8px;
   z-index: 100;
 }
 .btn {
