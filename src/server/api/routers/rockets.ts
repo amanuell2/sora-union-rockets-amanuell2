@@ -74,15 +74,17 @@ export const rocketsRouter = createTRPCRouter({
  
     update: protectedProcedure.input(
         z.object({
+            id:z.string().nonempty(), 
             title: z.string().min(1).nonempty(),
             description: z.string().min(3).nonempty(),
         })
     ).mutation(async ({ ctx, input }) => {
         const authorId = ctx.userId;
 
-        const rocket = await ctx.prisma.rocket.update({
+        const rocket = await ctx.prisma.rocket.updateMany({
             where: {
-                id: authorId,
+                id: input.id,
+                authorId:authorId
             },
             data: {
                 title: input.title,

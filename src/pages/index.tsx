@@ -178,11 +178,13 @@ const Feed = () => {
     </div>
   )
 }
+
 const Home: NextPage = (props) => {
 
+  // get user data from the useUser hook provided by next clerk
   const { user, isLoaded: userLoaded, isSignedIn } = useUser();
 
-  // start fetching data from the api on initial render
+  // start fetching data from the api on initial render react query will cache the data
   const { data } = api.rockets.getAll.useQuery();
 
   // return empty div if user is not loaded
