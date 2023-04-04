@@ -15,7 +15,7 @@ import { z } from "zod";
 import { type SubmitHandler, useForm, } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RocketContextProvider, useRocket } from "~/pages/rocket.context";
-import { AutoCompleteInput } from "~/components/AutoCompleteInout";
+import { AutoCompleteInput } from "~/components/AutoCompleteInput";
 
 dayjs.extend(relativeTime);
 type RocketWithUser = RouterOutputs["rockets"]["getAll"][number];
