@@ -14,7 +14,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { z } from "zod";
 import { type SubmitHandler, useForm, } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RocketContextProvider, useRocket } from "~/pages/rocket.context";
+import { RocketContextProvider, useRocket } from "~/context/rocket.context";
 import { AutoCompleteInput } from "~/components/AutoCompleteInput";
 
 dayjs.extend(relativeTime);
