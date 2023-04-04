@@ -12,7 +12,7 @@ type User = {
 
 export const AutoCompleteInput = () => {
     const [query, setQuery] = useState<string>('')
-    const [peoples, setPeoples] = useState<people[]>([])
+    const [peoples, setPeoples] = useState<User[]>([])
     const [selected, setSelected] = useState(null)
 
     const handleChange = (e) => {
