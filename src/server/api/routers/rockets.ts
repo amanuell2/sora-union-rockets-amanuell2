@@ -2,7 +2,7 @@ import { type User } from "@clerk/nextjs/dist/api";
 import { clerkClient } from "@clerk/nextjs/server";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import Trpc from "~/pages/api/trpc/[trpc]";
+
 
 import {
     createTRPCRouter,

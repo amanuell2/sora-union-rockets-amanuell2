@@ -50,6 +50,7 @@ export const AutoCompleteInput = () => {
     return () => {
       debouncedResults.cancel();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -128,6 +129,7 @@ function request<TResponse>(
   return fetch(url, config)
     .then((response) => response.json())
     // and return the result data.
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     .then((data) => data?.items as TResponse);
 
 }

@@ -39,10 +39,10 @@ const CreateRocketWizard = () => {
   const onSubmit: SubmitHandler<RocketFormType> = (data, e) => {
     e?.preventDefault()
     if (isUpdating && rocket?.id) {
-      updateMutate({ id: rocket?.id, ...data })
+    void  updateMutate({ id: rocket?.id, ...data })
       return
     }
-    mutate(data)
+  void  mutate(data)
   }
 
   useEffect(() => {
@@ -104,7 +104,7 @@ const CreateRocketWizard = () => {
         placeholder="blur"
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAA"
       />
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-row w-full" >
+      <form onSubmit={void handleSubmit(onSubmit)} className="flex flex-row w-full" >
         <div className="flex flex-col w-full gap-3">
           <input type="text" placeholder="rocket title" className="bg-transparent grow outline-none"
             disabled={isRocketing}
@@ -211,12 +211,14 @@ const Feed = () => {
   )
 }
 
-const Home: NextPage = (props) => {
+const Home: NextPage = (_props) => {
 
   // get user data from the useUser hook provided by next clerk
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { user, isLoaded: userLoaded, isSignedIn } = useUser();
 
   // start fetching data from the api on initial render react query will cache the data
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data } = api.rockets.getAll.useQuery();
 
   // return empty div if user is not loaded

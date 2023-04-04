@@ -16,6 +16,7 @@ const RocketContext = React.createContext<TRocketContext | null>(null);
 
 const Provider = RocketContext.Provider;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const RocketContextProvider = ({ children }: any) => {
 
     const [isUpdating, setIsUpdating] = React.useState(false);
