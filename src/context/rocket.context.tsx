@@ -10,6 +10,8 @@ type TRocketContext = {
     updateRocket: (rocket: Rocket['rocket']) => void;
     isUpdating: boolean;
     setIsUpdating: (isUpdating: boolean) => void;
+    authorId: string;
+    setAuthor: (authorId: string) => void;
 }
 
 const RocketContext = React.createContext<TRocketContext | null>(null);
@@ -21,6 +23,8 @@ const RocketContextProvider = ({ children }: any) => {
 
     const [isUpdating, setIsUpdating] = React.useState(false);
     const [rocket, setRocket] = React.useState<Rocket['rocket'] | null>(null);
+    const [authorId, setAuthorId] = React.useState<string>('');
+
 
     const updateRocket = (_rocket: Rocket['rocket']) => {
         if(_rocket) {
@@ -34,7 +38,9 @@ const RocketContextProvider = ({ children }: any) => {
             rocket,
             updateRocket: (rocket: Rocket['rocket']) => updateRocket(rocket),
             isUpdating,
-            setIsUpdating: (isUpdating: boolean) => setIsUpdating(isUpdating)
+            setIsUpdating: (isUpdating: boolean) => setIsUpdating(isUpdating),
+            authorId,
+            setAuthor: (authorId: string) => setAuthorId(authorId)
         }}>
             {children}
         </Provider>

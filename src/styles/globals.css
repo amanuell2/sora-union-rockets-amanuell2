@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    @apply bg-black text-slate-100;
+body {
+  @apply max-h-screen bg-gray-100 text-slate-100;
+  background: linear-gradient(276.01deg, rgba(48, 86, 211, 0.05) 7.08%, rgba(245, 242, 253, 0.3) 98.07%, rgba(245, 242, 253, 0.096144) 98.07%);
+}
+
+.container-shadow {
+  box-shadow: 0px 60px 120px -20px #ebeffd;
+  border-radius: 8px;
+  z-index: 100;
+}
+.btn {
+    background: linear-gradient(139.95deg, #DE9F40 -3.6%, #636699 45.83%, #539E97 95.27%);
 }
