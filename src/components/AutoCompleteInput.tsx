@@ -18,10 +18,10 @@ type User = {
 }
 
 export const AutoCompleteInput = () => {
-  const { setAuthor } = useRocket();
+  const { setGitUser } = useRocket();
   const [query, setQuery] = useState<string>('')
   const [peoples, setPeoples] = useState<User[]>([])
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState<User>({ id: 0, name: '', profileImageUrl: '' })
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value)
   }
@@ -31,9 +31,11 @@ export const AutoCompleteInput = () => {
   }, []);
 
 const onchange = (value: User) => {
-  console.log(value)
     setSelected(value)
-    setAuthor(value?.id)
+    setGitUser({
+      gitUsername: value.name,
+      gitUserAvatar: value.profileImageUrl
+    })
 }
   useEffect(() => {
     if (query === '') {

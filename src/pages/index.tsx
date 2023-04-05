@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import { type NextPage } from "next";
 import Head from "next/head";
 
@@ -24,11 +23,14 @@ type RocketWithUser = RouterOutputs["rockets"]["getAll"][number];
 
 
 const CreateRocketWizard = () => {
-  const { isUpdating, rocket, setIsUpdating, authorId } = useRocket();
+  const { isUpdating, rocket, setIsUpdating,gitUser,setGitUser } = useRocket();
 
   const formSchema = z.object({
     title: z.string().min(3).max(50),
     description: z.string().min(3).max(500),
+    rocketName: z.string().min(3).max(50),
+    // gitUsername: z.string().min(3).max(50),
+    // gitUserAvatar: z.string().min(3).max(50),
   })
 
   type RocketFormType = z.infer<typeof formSchema>;
@@ -36,21 +38,22 @@ const CreateRocketWizard = () => {
   const { register, handleSubmit, setValue, reset, formState: { errors, isSubmitting } } = useForm<RocketFormType>({
     resolver: zodResolver(formSchema)
   })
-
-  const onSubmit: SubmitHandler<RocketFormType> = (data, e) => {
-    e?.preventDefault()
+  const onError = (errors: any, e: any) => console.log(errors, e);
+  const onSubmit: SubmitHandler<RocketFormType> =(data) => {
     if (isUpdating && rocket?.id) {
-      updateMutate({ id: rocket?.id, ...data, authorId: authorId })
+      updateMutate({ id: rocket?.id, ...data, gitUsername: gitUser?.gitUsername, gitUserAvatar: gitUser?.gitUserAvatar })
       return
     }
-    mutate({ ...data, authorId: authorId })
+    mutate({ ...data, gitUsername: gitUser?.gitUsername, gitUserAvatar: gitUser?.gitUserAvatar })
   }
 
   useEffect(() => {
     if (isUpdating && rocket) {
-
       setValue("title", rocket?.title, { shouldValidate: true })
       setValue("description", rocket?.description, { shouldValidate: true })
+      setValue("rocketName", rocket?.rocketName, { shouldValidate: true })
+      setGitUser({ gitUsername: rocket?.gitUsername, gitUserAvatar: rocket?.gitUserAvatar })
+
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUpdating, rocket])
@@ -111,7 +114,7 @@ const CreateRocketWizard = () => {
         <div className="absolute right-12 -top-12">
           <Image src="/Oval.png" alt="dot shape image" width={160} height={700} className="h-48 object-fit" />
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col bg-white  container-shadow absolute left-32 right-32 bottom-8 top-8 justify-center rounded-lg" >
+        <form onSubmit={handleSubmit(onSubmit, onError)} className="flex flex-col bg-white  container-shadow absolute left-32 right-32 bottom-8 top-8 justify-center rounded-lg" >
           <div className="flex flex-col gap-8 w-9/12 self-center">
             <div className="w-full flex flex-col">
 
@@ -129,7 +132,7 @@ const CreateRocketWizard = () => {
             <div className="w-full flex flex-col">
               <input type="text" placeholder="Enter Rocket Name" className=" border border-gray-100  text-gray-900 text-sm rounded-lg  p-3.5 placeholder-slate-400"
                 disabled={isRocketing}
-                {...register("title")}
+                {...register("rocketName")}
               />
               {errors.title && (
                 <span className="text-black  font-thin">
@@ -193,8 +196,8 @@ const RocketView = (props: RocketWithUser) => {
 
   return (
     <div className="bg-white p-4 flex gap-3 container-shadow rounded-2xl" key={rocket.id}>
-      <div className="grid grid-rows-3 grid-flow-col w-full px-6">
-        <div className="row-span-3 flex justify-start -ml-2">
+      <div className="grid grid-rows-3 grid-flow-col w-full px-4">
+        <div className="row-span-3 flex justify-center">
           <iframe src="https://embed.lottiefiles.com/animation/53863"></iframe>
         </div>
         <div className="col-span-10  w-full flex flex-row justify-end items-center gap-4">
@@ -211,10 +214,10 @@ const RocketView = (props: RocketWithUser) => {
             <FaTrash size={20} />
           </button>
         </div>
-        <div className="row-span-2 col-span-10 flex flex-col gap-2">
+        <div className="row-span-2 col-span-10 flex flex-col gap-2 pl-8">
           <div className="flex flex-col gap-1">
             <span className="text-3xl font-bold text-black">{rocket.title}</span>
-            <span className="text-xl font-bold text-black">{rocket.title}</span>
+            <span className="text-xl font-bold text-black">{rocket.rocketName}</span>
             <span className=" text-base text-gray-400">{rocket.description}</span>
           </div>
           <div className="grid grid-rows-3 grid-flow-col">
@@ -222,8 +225,8 @@ const RocketView = (props: RocketWithUser) => {
               width={48}
               height={48}
               className="w-12 h-12 rounded-full row-span-3"
-              src={author.profilePicture} alt="profile image" />
-            <span className="col-span-10 text-gray-600">{`@${author.name}`}</span>
+              src={rocket.gitUserAvatar} alt="profile image" />
+            <span className="col-span-10 text-gray-600">{`@${rocket.gitUsername}`}</span>
             <span className=" font-thin col-span-10 text-gray-500" >{`${dayjs(rocket.createdAt).fromNow()}`}</span>
           </div>
         </div>

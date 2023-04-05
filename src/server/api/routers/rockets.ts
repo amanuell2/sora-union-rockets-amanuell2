@@ -56,7 +56,10 @@ export const rocketsRouter = createTRPCRouter({
     create: protectedProcedure.input(
         z.object({
             title: z.string().min(1).nonempty(),
+            rocketName: z.string().min(1).nonempty(),
             description: z.string().min(3).nonempty(),
+            gitUsername: z.string().min(1).nonempty(),
+            gitUserAvatar: z.string().min(1).nonempty(),
         })
     ).mutation(async ({ ctx, input }) => {
         const authorId = ctx.userId;
@@ -65,7 +68,10 @@ export const rocketsRouter = createTRPCRouter({
             data: {
                 authorId,
                 title: input.title,
+                rocketName: input.rocketName,
                 description: input.description,
+                gitUsername: input.gitUsername,
+                gitUserAvatar: input.gitUserAvatar,
             },
         });
 
@@ -76,7 +82,10 @@ export const rocketsRouter = createTRPCRouter({
         z.object({
             id:z.string().nonempty(), 
             title: z.string().min(1).nonempty(),
+            rocketName: z.string().min(1).nonempty(),
             description: z.string().min(3).nonempty(),
+            gitUsername: z.string().min(1).nonempty(),
+            gitUserAvatar: z.string().min(1).nonempty(),
         })
     ).mutation(async ({ ctx, input }) => {
         const authorId = ctx.userId;
@@ -88,7 +97,10 @@ export const rocketsRouter = createTRPCRouter({
             },
             data: {
                 title: input.title,
+                rocketName: input.rocketName,
                 description: input.description,
+                gitUsername: input.gitUsername,
+                gitUserAvatar: input.gitUserAvatar,
             },
         });
 

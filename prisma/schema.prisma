@@ -15,9 +15,12 @@ generator client {
 model Rocket {
     id String @id @default(cuid())
     title String @db.VarChar(255)
+    rocketName String @db.VarChar(255)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt @default(now())
     description String @db.VarChar(255)
+    gitUsername String @db.VarChar(255)
+    gitUserAvatar String @db.VarChar(255)
     authorId String @db.VarChar(255)
     @@index([authorId])
 }
