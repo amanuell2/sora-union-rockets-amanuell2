@@ -46,6 +46,8 @@ Since the initial release of the project, I have made several improvements to en
 
 - **Streamlined User Flows**: I have simplified several user flows within the application to make it easier for users to complete their desired actions. By identifying and addressing potential pain points and bottlenecks, I have created a more streamlined and user-friendly experience.
 
+- **Bug Fix and Unit Test**: Some bugs are still around and unit test is still missing
+
 Overall, these improvements have significantly enhanced the application's performance, responsiveness, and usability. I will continue to monitor and optimize the application's performance and user experience to ensure that it meets the needs of its users. 
 
 [Find me on Linkedin, Amanuel Tadesse 🚀](https://www.linkedin.com/in/amanuel-tadesse-b96245173/). 
