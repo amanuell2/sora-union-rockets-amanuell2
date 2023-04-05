@@ -1,28 +1,53 @@
-# Create T3 App
+# Sora Union front end take home challenge
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+My project is a web application built using Next.js, TRPC, Prisma, TypeScript, and Tailwind. These technologies provide a modern web stack that prioritizes performance, scalability, and maintainability. Next.js provides a framework for building React-based web applications, while TRPC simplifies server-client communication. Prisma simplifies database access, and TypeScript adds static typing to the language. Finally, Tailwind provides a utility-first CSS framework for designing responsive UI components.
 
-## What's next? How do I make an app with this?
+## Demo
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+You can view a live demo of the application at [Rocket Review](https://sora-union-rockets-amanuell2.vercel.app/). 
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Installation
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+Use the package manager npm or pnpm to install
 
-## Learn More
+```bash
+pnpm install
+```
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+Note that these commands assume that you have Node.js and npm installed on your system. Once you've installed these technologies, you'll need to configure them in your project based on your specific requirements.
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Authentication
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+The project uses Clerk for user authentication and identity management. Clerk is a user authentication platform that provides easy-to-use and customizable authentication solutions for web applications.
 
-## How do I deploy this?
+## Database
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+The project's database is deployed using PlanetScale, a cloud-native database platform that provides a serverless, scalable, and highly available database solution.
+
+## Logging
+
+The project uses Axiom for log monitoring. Axiom is a log management platform that provides centralized log aggregation, search, and visualization for applications running in various environments.
+
+## Deployment
+
+The project is deployed using Vercel, a cloud platform for static and serverless deployment that provides seamless integration with various front-end frameworks and tools, including Next.js.
+You can view a live demo of the application at [Rocket Review](https://sora-union-rockets-amanuell2.vercel.app/).
+
+
+## Conclusion
+
+
+
+Since the initial release of the project, I have made several improvements to enhance the application's performance, responsiveness, and overall user experience. Here are some of the key updates:
+
+- **Reduced Rerenders**: I have optimized the application's components to minimize unnecessary rerenders and improve performance. By identifying and addressing the root causes of excessive rerenders, I have significantly reduced the application's load times and improved its overall responsiveness.
+
+- **Improved Responsiveness**: I have made several design changes to the application to make it more responsive and easier to use on a variety of devices. By incorporating responsive design principles and ensuring that the application is optimized for mobile devices, I have created a more seamless user experience.
+
+- **Streamlined User Flows**: I have simplified several user flows within the application to make it easier for users to complete their desired actions. By identifying and addressing potential pain points and bottlenecks, I have created a more streamlined and user-friendly experience.
+
+Overall, these improvements have significantly enhanced the application's performance, responsiveness, and usability. I will continue to monitor and optimize the application's performance and user experience to ensure that it meets the needs of its users. 
+
+[Find me on Linkedin, Amanuel Tadesse 🚀](https://www.linkedin.com/in/amanuel-tadesse-b96245173/). 
+```
+
