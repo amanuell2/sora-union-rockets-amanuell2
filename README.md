@@ -38,7 +38,7 @@ You can view a live demo of the application at [Rocket Review](https://sora-unio
 
 
 
-Since the initial release of the project, I have made several improvements to enhance the application's performance, responsiveness, and overall user experience. Here are some of the key updates:
+Since the initial release of the project, I have made several improvements to enhance the application's performance, responsiveness, and overall user experience. Here are some of the key updates that needs to be done:
 
 - **Reduced Rerenders**: I have optimized the application's components to minimize unnecessary rerenders and improve performance. By identifying and addressing the root causes of excessive rerenders, I have significantly reduced the application's load times and improved its overall responsiveness.
 
