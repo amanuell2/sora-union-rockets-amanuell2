@@ -19,10 +19,10 @@ type User = {
 }
 
 export const AutoCompleteInput = () => {
-  const { setGitUser } = useRocket();
+  const { setGitUser,gitUser } = useRocket();
   const [query, setQuery] = useState<string>('')
   const [peoples, setPeoples] = useState<User[]>([])
-  const [selected, setSelected] = useState<User>({ id: 0, name: '', profileImageUrl: '' })
+  const [selected, setSelected] = useState<User>(gitUser ? { id: gitUser.gitUserAvatar.length, name: gitUser.gitUsername, profileImageUrl: gitUser.gitUserAvatar } : { id: 0, name: '', profileImageUrl: '' })
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value)
   }
@@ -60,6 +60,13 @@ const onchange = (value: User) => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // update the selected value when the user changes on context
+  useEffect(() => {
+    if (gitUser) {
+      setSelected({ id: gitUser.gitUserAvatar.length, name: gitUser.gitUsername, profileImageUrl: gitUser.gitUserAvatar })
+    }
+  }, [gitUser])
 
   return (
     <div className="top-16 w-full border rounded-md">
