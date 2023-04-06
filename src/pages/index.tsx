@@ -101,7 +101,7 @@ const CreateRocketWizard = () => {
   if (!user) return null
 
   return (
-    <div className="flex flex-col gap-3 px-6 sm:h-screen w-full mb-12">
+    <div className="flex flex-col gap-3 px-6 sm:h-screen w-full mb-12 place-content-center">
       <Image src={user.profileImageUrl} alt="profile image"
         className="w-14 h-14 rounded-full"
         width={56}
@@ -181,11 +181,11 @@ const RocketView = (props: RocketWithUser) => {
   });
 
   return (
-    <div className="bg-white p-4 flex flex-col sm:flex-row gap-3 container-shadow rounded-2xl" key={rocket.id}>
-      <div className="w-full sm:w-1/3 flex justify-center">
+    <div className="bg-white p-4 flex justify-between items-center lg:flex-col sm:flex-row gap-2 container-shadow rounded-2xl" key={rocket.id}>
+      <div className=" w-2/6 flex items-center justify-center">
         <iframe src="https://embed.lottiefiles.com/animation/53863"></iframe>
       </div>
-      <div className="w-full sm:w-2/3 flex flex-col justify-between">
+      <div className="w-full flex flex-col justify-between grow-1">
         <div className="flex flex-row justify-end items-center gap-4">
           <button className="text-blue-400 p-3 bg-slate-200 rounded-md cursor-pointer disabled:cursor-auto"
             onClick={() => updateRocket(rocket)}
@@ -206,14 +206,16 @@ const RocketView = (props: RocketWithUser) => {
             <span className="text-xl font-bold text-black">{rocket.rocketName}</span>
             <span className=" text-base text-gray-400">{rocket.description}</span>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          <div className="flex justify-start items-center gap-4">
             <Image
               width={48}
               height={48}
-              className="w-12 h-12 rounded-full"
+              className="w-12 h-12 rounded-full "
               src={rocket.gitUserAvatar} alt="profile image" />
-            <span className="text-gray-600">{`@${rocket.gitUsername}`}</span>
-            <span className="text-gray-500">{`${dayjs(rocket.createdAt).fromNow()}`}</span>
+            <div className="">
+              <span className="text-gray-600 ">{`@${rocket.gitUsername}`}</span>
+              <span className="text-gray-500 row-span-2">{` · ${dayjs(rocket.createdAt).fromNow()}`}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -229,7 +231,7 @@ const Feed = () => {
   if (rocketLoading) return <Loading />
 
   if (!data) return <div className="h-full w-full items-center justify-center">
-    <h4 className="text-slate-400">Something goes worng!</h4>
+    <h4 className="text-slate-400">Something goes wrong!</h4>
     <iframe src="https://embed.lottiefiles.com/animation/23520"></iframe>
   </div>
 
@@ -276,10 +278,9 @@ const Home: NextPage = (_props) => {
       </Head>
       <main className="flex justify-center h-screen py-12">
         <RocketContextProvider>
-          <div className="w-full grid xs:rid grid-cols- xl:grid-cols-2 h-full justify-evenly items-center">
-
-            <div className="flex w-full ">
-
+          <div className="w-full grid mobile:grid-cols-1 tablet:grid-cols-2 gap-4">
+            <Feed />
+            <div className="flex w-full">
               {!isSignedIn && (<div className="flex text-black w-full h-64  justify-center items-center">
                 <SignInButton>
                   <button className="text-white  self-center w-full h-16 rounded-md btn"
@@ -292,7 +293,7 @@ const Home: NextPage = (_props) => {
               )}
               {!!isSignedIn && <CreateRocketWizard />}
             </div>
-            <Feed />
+
           </div>
         </RocketContextProvider>
       </main>
