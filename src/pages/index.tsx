@@ -187,13 +187,13 @@ const RocketView = (props: RocketWithUser) => {
       </div>
       <div className="w-full flex flex-col justify-between grow-1">
         <div className="flex flex-row justify-end items-center gap-4">
-          <button className="text-blue-400 p-3 bg-slate-200 rounded-md cursor-pointer disabled:cursor-auto"
+          <button className="text-blue-400 p-3 bg-slate-200 rounded-md cursor-pointer disabled:cursor-auto disabled:opacity-20"
             onClick={() => updateRocket(rocket)}
             disabled={user?.id !== rocket.authorId}
           >
             <FaPencilAlt size={20} />
           </button>
-          <button className="text-red-300 p-3 bg-rose-400 rounded-md cursor-pointer disabled:cursor-auto"
+          <button className="text-red-300 p-3 bg-rose-400 rounded-md cursor-pointer disabled:cursor-auto disabled:opacity-20"
             onClick={() => deleteMutate({ id: rocket.id })}
             disabled={user?.id !== rocket.authorId}
           >
@@ -247,10 +247,18 @@ const Feed = () => {
       <div className="py-4">
         <h1 className="text-4xl font-bold text-black">List of Rockets</h1>
       </div>
-      <div className="max-h-full overflow-scroll flex flex-col gap-4">
+      <div className="max-h-full flex flex-col gap-4">
         {data.map((rocketDetail) => (
           <RocketView {...rocketDetail} key={rocketDetail.rocket.id} />
         ))}
+        {data.length === 0 &&
+          <>
+            <h4 className="text-slate-400 text-center">No rockets found!</h4>
+           <div className="w-full h-96 flex justify-center items-center">
+           <iframe src="https://embed.lottiefiles.com/animation/23520"></iframe>
+           </div>
+          </>
+          }
       </div>
     </div>
   )
@@ -280,16 +288,20 @@ const Home: NextPage = (_props) => {
         <RocketContextProvider>
           <div className="w-full grid mobile:grid-cols-1 tablet:grid-cols-2 gap-4">
             <Feed />
-            <div className="flex w-full">
-              {!isSignedIn && (<div className="flex text-black w-full h-64  justify-center items-center">
-                <SignInButton>
-                  <button className="text-white  self-center w-full h-16 rounded-md btn"
-                    type="submit"
-                  >
-                    Sign in with Github
-                  </button>
-                </SignInButton>
-              </div>
+            <div className="flex w-full justify-center items-center">
+              {!isSignedIn && (
+                <div className="flex flex-col">
+                  <p className="text-slate-400 font-bold text-2xl">Authenticate and Leave Your Review </p>
+                  <div className="flex text-black w-full h-64 justify-center items-center">
+                    <SignInButton>
+                      <button className="text-white  w-full h-16 rounded-md btn"
+                        type="submit"
+                      >
+                        Sign in with Github
+                      </button>
+                    </SignInButton>
+                  </div>
+                </div>
               )}
               {!!isSignedIn && <CreateRocketWizard />}
             </div>
