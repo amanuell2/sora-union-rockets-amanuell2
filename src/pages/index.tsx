@@ -149,7 +149,7 @@ const CreateRocketWizard = () => {
               {isUpdating ? "Update Review" : "Add Review"}
             </button>
           )}
-          {isRocketing || isReviewUpdating && (
+          { (isReviewUpdating || isRocketing) && (
             <div className="flex items-center justify-center mt-8">
               <LoadingSpinner size={40} />
             </div>
@@ -288,7 +288,7 @@ const Home: NextPage = (_props) => {
         <RocketContextProvider>
           <div className="w-full grid mobile:grid-cols-1 tablet:grid-cols-2 gap-4">
             <Feed />
-            <div className="flex w-full justify-center items-center">
+            <div className="flex w-full h-screen justify-center items-center">
               {!isSignedIn && (
                 <div className="flex flex-col">
                   <p className="text-slate-400 font-bold text-2xl">Authenticate and Leave Your Review </p>
